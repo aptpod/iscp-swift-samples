@@ -1,0 +1,15 @@
+name: intdash
+targets:
+  intdash:
+    type: framework
+    platform: iOS
+    deploymentTarget: "9.0"
+    sources: [intdash]
+    info:
+      path: ./Info.plist
+      version: v2.3.0-next-946b424de
+    settings:
+      APPLICATION_EXTENSION_API_ONLY: true
+    scheme: {}
+    dependencies:
+    - carthage: AnyCodable

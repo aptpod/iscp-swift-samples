@@ -1,0 +1,11 @@
+framework module IntdashNTP {
+  umbrella header "IntdashNTP.h"
+
+  export *
+  module * { export * }
+}
+
+module IntdashNTP.Swift {
+    header "IntdashNTP-Swift.h"
+    requires objc
+}
