@@ -69,9 +69,9 @@ extension MainViewController {
         }
         if let sensor = self.sensorAttitude {
             sensorValues.append("\nOrientationAngle:\n")
-            sensorValues.append("yaw: \(sensor.x)\n")
-            sensorValues.append("pitch: \(sensor.y)\n")
-            sensorValues.append("roll: \(sensor.z)")
+            sensorValues.append("pitch: \(sensor.x)\n")
+            sensorValues.append("roll: \(sensor.y)\n")
+            sensorValues.append("yaw: \(sensor.z)")
         }
         self.sensorValueLabel.text = String(sensorValues)
         self.sensorDataLock.unlock()

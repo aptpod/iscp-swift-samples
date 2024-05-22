@@ -48,14 +48,15 @@ extension MainViewController {
             }
             if Config.SENSOR_IS_ENABLED_ATTITUDE {
                 sensorValues.append("\nOrientationAngle:\n")
-                sensorValues.append("yaw: \(self.toDegrees(motion.attitude.yaw))\n")
                 sensorValues.append("pitch: \(self.toDegrees(motion.attitude.pitch))\n")
-                sensorValues.append("roll: \(self.toDegrees(motion.attitude.roll))")
+                sensorValues.append("roll: \(self.toDegrees(motion.attitude.roll))\n")
+                sensorValues.append("yaw: \(self.toDegrees(motion.attitude.yaw))")
             }
             DispatchQueue.main.async {
                 self.sensorValueLabel.text = String(sensorValues)
             }
         }
+        print("raotationRate x: \(motion.rotationRate.x), y: \(motion.rotationRate.y), z: \(motion.rotationRate.z)")
     }
     
     func disposeSensorManager() {
@@ -117,9 +118,9 @@ extension MainViewController {
                 // 事前に定義したデータIDとペイロードフォーマットでデータポイントを作成します。
                 let dataID = Config.SENSOR_ATTITUDE_DATA_ID
                 let payload = Vector3DPayload(
-                    x: self.toDegrees(motion.attitude.yaw),
-                    y: self.toDegrees(motion.attitude.pitch),
-                    z: self.toDegrees(motion.attitude.roll)).encode()
+                    x: self.toDegrees(motion.attitude.pitch),
+                    y: self.toDegrees(motion.attitude.roll),
+                    z: self.toDegrees(motion.attitude.yaw)).encode()
                 dataSize += UInt64(payload.count)
                 let dataPointGroup = DataPointGroup(dataID: dataID, dataPoints: [DataPoint(elapsedTime: elapsedTime, payload: payload)])
                 dataPointGroups.append(dataPointGroup)
