@@ -97,7 +97,8 @@ class RequestDataPointsSampleViewController: UIViewController {
     
     func updateDataPoints(elapsedTime: TimeInterval) {
         let start = self.baseTime + elapsedTime
-        let end = self.baseTime + self.duration
+        // データポイントリクエスト時の終点（end）と同時刻のデータは含めないため、終点を含める様にマージンをセットします。
+        let end = self.baseTime + self.duration + Config.INTDASH_REQUEST_DATA_POINTS_MIN_TIME_INTERVAL
         guard start < end else {
             self.dataPointList = []
             self.tableView.reloadData()
@@ -112,8 +113,7 @@ class RequestDataPointsSampleViewController: UIViewController {
             /// A: 時間範囲の起点（start）と終点（end）を指定し、
             ///    1回のリクエストで取得するデータポイント数(limit)を設定してリクエストする(このサンプルで行っている方法)。
             ///    レスポンスとしてデータポイントのリストを得たら、次のリクエストで、
-            ///    「前のリクエストで取得したデータポイントの中で最大の経過時間（最も遅い時刻を持つデータポイントの経過時間）+
-            ///    マージン(このサンプルではConfig.INTDASH_REQUEST_DATA_POINTS_NEXT_POINT_INTERVAL)」を、
+            ///    前のリクエストで取得したデータポイントの中で最大の経過時間（最も遅い時刻を持つデータポイントの経過時間）を、
             ///    起点（start）として指定し、リストの続きを取得する。
             ///    レスポンスに含まれるデータポイントが0個になるまでこれを繰り返す。
             ///
@@ -123,10 +123,11 @@ class RequestDataPointsSampleViewController: UIViewController {
             ///    例) 10秒間ずつデータポイントを取得する場合の例
             ///    let kRequestDuration: TimeInterval = 10
             ///    startTime = baseTime + elapsedTime
-            ///    endTime = startTime + kRequestDuration - Config.INTDASH_REQUEST_DATA_POINTS_NEXT_POINT_INTERVAL
+            ///    endTime = startTime + kRequestDuration
             ///    // Request...
             ///    elapsedTime += kRequestDuration
             ///    // 次のデータを取得
+            ///
             IntdashAPIManager.shared.requestListDataPoints(name: self?.measurementID ?? "", filters: filters, start: start, end: end, order: .asc) { response, error in
                 let dataPoints = response ?? []
                 print("Data points size: \(dataPoints.count)")
@@ -140,8 +141,7 @@ class RequestDataPointsSampleViewController: UIViewController {
                     }
                 }
                 if timestamp > 0 {
-                    // 同じデータを要求しないように経過時間に最小時間を追加する
-                    self?.elapsedTime = (timestamp - self!.baseTime) + Config.INTDASH_REQUEST_DATA_POINTS_NEXT_POINT_INTERVAL
+                    self?.elapsedTime = timestamp - self!.baseTime
                     print("timestamp: \(timestamp), elapsedTime: \(self!.elapsedTime), \(self!.elapsedTime + self!.baseTime), \(Date(timeIntervalSince1970: timestamp).rfc3339String)")
                 }
                 DispatchQueue.main.async {

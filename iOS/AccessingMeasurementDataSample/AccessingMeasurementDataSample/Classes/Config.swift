@@ -35,8 +35,8 @@ class Config {
     static let INTDASH_REQUEST_MEASUREMENT_DURATION_START: TimeInterval = 0.001
     /// 一度に要求するデータポイントの最大数
     static let INTDASH_REQUEST_DATA_POINTS_LIMIT: Int = 100
-    /// 次のデータポイントまでの最小時間（同じデータポイントを2回取得しないようにするために使用）
-    static let INTDASH_REQUEST_DATA_POINTS_NEXT_POINT_INTERVAL: TimeInterval = 0.000001
+    /// 次のデータポイントまでの最小時間
+    static let INTDASH_REQUEST_DATA_POINTS_MIN_TIME_INTERVAL: TimeInterval = 0.000001
     
     // View Contents
     static let SEARCH_BAR_TEXT_COLOR: UIColor = UIColor.white
