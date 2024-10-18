@@ -115,9 +115,10 @@ class RequestDataPointsSampleViewController: UIViewController {
             ///    レスポンスとしてデータポイントのリストを得たら、次のリクエストで、
             ///    前のリクエストで取得したデータポイントの中で最大の経過時間（最も遅い時刻を持つデータポイントの経過時間）を、
             ///    起点（start）として指定し、リストの続きを取得する。
+            ///    この際に起点（start）にはデータポイントと同じ時刻を含めてしまうと、同じデータをリクエストしてしまうのでマージン（例：1マイクロ秒。）を加算する。
             ///    レスポンスに含まれるデータポイントが0個になるまでこれを繰り返す。
             ///
-            /// B: 1回のリクエストで取得するデータポイント数は制限せず、一定の時間範囲（例：10秒間。ただしマージンを減算）を指定してリクエストする。
+            /// B: 1回のリクエストで取得するデータポイント数は制限せず、一定の時間範囲（例：10秒間。）を指定してリクエストする。
             ///    レスポンスとしてデータポイントのリストを得たら、次のリクエストで、リストの続き（次の10秒間に含まれるデータポイント）を取得する。
             ///    必要なだけこれを繰り返す。
             ///    例) 10秒間ずつデータポイントを取得する場合の例
@@ -141,7 +142,7 @@ class RequestDataPointsSampleViewController: UIViewController {
                     }
                 }
                 if timestamp > 0 {
-                    self?.elapsedTime = timestamp - self!.baseTime
+                    self?.elapsedTime = (timestamp - self!.baseTime) + Config.INTDASH_REQUEST_DATA_POINTS_MIN_TIME_INTERVAL // リクエストの開始時刻と同じ時刻は含まれるため、同じデータをリクエストしない様にデータポイントの最小期間を追加します。
                     print("timestamp: \(timestamp), elapsedTime: \(self!.elapsedTime), \(self!.elapsedTime + self!.baseTime), \(Date(timeIntervalSince1970: timestamp).rfc3339String)")
                 }
                 DispatchQueue.main.async {
