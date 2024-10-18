@@ -352,8 +352,6 @@ extension MainViewController: UpstreamDelegate {
             }
             if let index = self.upstreams.firstIndex(of: upstream) {
                 self.upstreams.remove(at: index)
-            } else {
-                return
             }
             self.upstreams.append(newStream)
             self.usedUpstreams.append(newStream)

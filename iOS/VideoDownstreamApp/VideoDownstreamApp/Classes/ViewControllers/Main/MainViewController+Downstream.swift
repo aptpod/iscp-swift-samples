@@ -129,6 +129,30 @@ extension MainViewController: DownstreamDelegate {
     
     func didCloseWithError(downstream: Downstream, error: Error) {
         print("didCloseWithError(downstream: \(downstream.id), error: \(error.localizedDescription)) - DownstreamDelegate")
+        self.connection?.reopenDownstream(downstream, completion: { [weak self] newStream, error in
+            guard let self = self else { return }
+            guard let newStream = newStream, error == nil else {
+                print("reopenDownstream failed. \(error?.localizedDescription ?? "")")
+                return
+            }
+            defer {
+                self.downstreamLock.unlock()
+            }
+            self.downstreamLock.lock()
+            if let index = self.downstreams.firstIndex(of: downstream) {
+                self.downstreams.remove(at: index)
+            }
+            self.downstreams.append(newStream)
+            if self.videoDownstream == downstream {
+                self.videoDownstream = newStream
+                print("reopen video downstream successfull. downstream[\(newStream.id)]")
+            }
+            newStream.delegate = self
+            DispatchQueue.global().async {
+                // 不要になったストリームを閉じる(解放する)
+                downstream.close()
+            }
+        })
     }
     
     func didResume(downstream: Downstream) {

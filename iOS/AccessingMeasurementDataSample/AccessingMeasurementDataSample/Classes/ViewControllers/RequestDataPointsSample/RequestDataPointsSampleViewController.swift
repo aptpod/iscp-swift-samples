@@ -19,7 +19,7 @@ class RequestDataPointsSampleViewController: UIViewController {
     let app: AppDelegate = UIApplication.shared.delegate as! AppDelegate
     
     @IBOutlet weak var tableView: UITableView!
-    @IBOutlet weak var dispCntLabel: UILabel! 
+    @IBOutlet weak var dispCntLabel: UILabel!
     
     //MARK: - Intdash API
     var api: IntdashAPIManager = IntdashAPIManager.shared

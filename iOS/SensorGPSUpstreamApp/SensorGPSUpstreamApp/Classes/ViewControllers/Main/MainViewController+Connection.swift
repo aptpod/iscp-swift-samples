@@ -44,7 +44,8 @@ extension MainViewController: ConnectionDelegate {
                 // アクセス用のトークンを指定します。接続時に発生するイベントにより使用されます。
                 self?.api.getEnableToken(token)
             },
-            nodeID: nodeID) { [weak self] con, error in
+            nodeID: nodeID,
+            projectUUID: kProjectId) { [weak self] con, error in
                 guard let con = con else {
                     // 接続失敗。
                     print("Failed to connect iSCP. \(error?.localizedDescription ?? "")")
