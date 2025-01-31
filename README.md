@@ -6,7 +6,7 @@
 
 - iOS 13 or later
 - Xcode 13.0 (13A233) or later
-- iSCP Swift v0.11.0
+- iSCP Swift v0.11.0 or later
 - intdash REST API v2.3.0 or later
 
 ## Sample Projects

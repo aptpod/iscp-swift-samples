@@ -8,7 +8,7 @@ target 'VideoUpstreamApp' do
   # Pods for VideoUpstreamApp
   
   # for iSCP
-  pod 'iSCP', '0.11.0'
+  pod 'iSCP'
   pod 'SwiftProtobuf', '~> 1.0'
   
   # for intdash REST API

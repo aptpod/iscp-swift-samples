@@ -2,13 +2,13 @@ PODS:
   - AnyCodable-FlightSchool (0.6.7)
   - intdash (2.3.0):
     - AnyCodable-FlightSchool (~> 0.6.1)
-  - iSCP (0.11.0):
+  - iSCP (1.1.0):
     - SwiftProtobuf (~> 1.0)
-  - SwiftProtobuf (1.24.0)
+  - SwiftProtobuf (1.28.2)
 
 DEPENDENCIES:
   - intdash (from `../../intdash/`)
-  - iSCP (= 0.11.0)
+  - iSCP
   - SwiftProtobuf (~> 1.0)
 
 SPEC REPOS:
@@ -24,9 +24,9 @@ EXTERNAL SOURCES:
 SPEC CHECKSUMS:
   AnyCodable-FlightSchool: 261cbe76757802b17d471b9059b21e6fa5edf57b
   intdash: 444e6724ae89840de88a70aabe0a4ec6950447b0
-  iSCP: d953c8d2a21e003116b185ab138f22611edd181d
-  SwiftProtobuf: bcfd2bc231cf9ae552cdc7c4e877bd3b41fe57b1
+  iSCP: 5b095a7a46d0fae33050a8e6099560f8ed372fa6
+  SwiftProtobuf: 4dbaffec76a39a8dc5da23b40af1a5dc01a4c02d
 
-PODFILE CHECKSUM: a85fc9ec11a796f758680a24836c6b1b3ba54da8
+PODFILE CHECKSUM: f9ea5eb3db9453ed8ec9ff95181cac84a600f361
 
-COCOAPODS: 1.14.2
+COCOAPODS: 1.16.2
